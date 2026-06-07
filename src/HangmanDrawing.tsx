@@ -42,7 +42,7 @@ const HangmanDrawing = ({ numberOfGuesses }: HangmanDrawingProps) => {
       {/* Gallows Structure */}
       <div className="w-[5px] h-[50px] bg-black absolute top-0 right-0" />
       <div className="w-[200px] h-[5px] bg-black ml-[120px]" />
-      <div className="h-[300px] w-[5px] bg-black ml-[120px]" />
+      <div className="h-[285px] w-[5px] bg-black ml-[120px]" />
       <div className="w-[250px] h-[8px] bg-black" />
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import wordData from "./wordList.json";
 import  Popup  from "./Popup.tsx";
 import HangmanDrawing from "./HangmanDrawing.tsx";
@@ -15,14 +15,23 @@ export default function App() {
     letter => !wordToGuess.includes(letter)
   );
 
-  const addGuessedLetter = (letter: string): void =>{
+  const addGuessedLetter = useCallback((letter: string): void =>{
     if(guessedLetters.includes(letter)){
       return;
     }
     setGuessedLetters(cLetter => [...cLetter, letter] );
-  };
+  },[guessedLetters]);
   
-  
+  const isLoser = incorrectLetters.length >= 6;
+  const isWinner = wordToGuess
+    .split("")
+    .every(letter => guessedLetters.includes(letter));
+  const message = isLoser 
+    ? "You Lost! Try again." 
+    : isWinner 
+    ? "Winner! Nice job." 
+    : "Hangman";
+
    useEffect(() => {
     const handler = (e: KeyboardEvent) =>  {
         const key = e.key;
@@ -42,7 +51,7 @@ export default function App() {
     <>
     
       <div className="flex flex-col items-center  min-h-screen pb-2">
-        <Popup />
+        <Popup message={message}/>
         <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
         <HangmanWord 
           guessedLetters={guessedLetters}

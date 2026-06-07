@@ -12,7 +12,7 @@ interface HangmanKeyboardProps {
 const HangmanKeyboard = ({activeLetters, inactiveLetters, addGuessedLetter}:HangmanKeyboardProps) => {
 
   return (
-    <div className="w-[80%] mx-auto grid grid-cols-4 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-13 gap-2 mt-5 ">
+    <div className="w-[80%] mx-auto grid grid-cols-4 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-13 gap-2 mt-5  ">
         {keys.map((k, index) => {
           const isActive = activeLetters.includes(k);
           const isInactive = inactiveLetters.includes(k);
@@ -21,7 +21,7 @@ const HangmanKeyboard = ({activeLetters, inactiveLetters, addGuessedLetter}:Hang
           return(
           <button 
             key={index} 
-            className={`p-4 uppercase border-[3px] border-black transition-colors
+            className={`p-4 font-bold text-lg uppercase border-[3px] border-black transition-colors
               ${isActive ? "bg-blue-500 text-white border-blue-500" : "bg-white text-black"}
               ${isInactive ? "opacity-30 cursor-not-allowed" : "hover:bg-slate-300"}
             `}
