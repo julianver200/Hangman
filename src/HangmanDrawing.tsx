@@ -1,4 +1,3 @@
-import React from 'react';
 
 // 1. Define the Body Parts (Static JSX elements)
 const HEAD = (

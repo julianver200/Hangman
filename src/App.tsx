@@ -35,7 +35,7 @@ export default function App() {
      return () => {
         document.removeEventListener("keypress", handler);
      }
-   }, [])
+   }, [addGuessedLetter])
    
    
   return (
@@ -49,8 +49,8 @@ export default function App() {
           wordToGuess={wordToGuess} 
         />
         <HangmanKeyboard
-          // activeLetters={} 
-          // inactiveLetters={} 
+          activeLetters={guessedLetters} 
+          inactiveLetters={incorrectLetters} 
           addGuessedLetter={addGuessedLetter} 
         />
 
