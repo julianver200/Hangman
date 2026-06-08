@@ -1,11 +1,10 @@
-import React from 'react'
-
 interface HangmanWordProps{
+    reveal?: boolean;
     guessedLetters: string[],
     wordToGuess: string
 }
 
-const HangmanWord = ({ guessedLetters, wordToGuess}: HangmanWordProps) => {
+const HangmanWord = ({ reveal, guessedLetters, wordToGuess}: HangmanWordProps) => {
   
   return (
     // Added flex, centering, and a gap between letters
@@ -14,7 +13,18 @@ const HangmanWord = ({ guessedLetters, wordToGuess}: HangmanWordProps) => {
         const isGuessed = guessedLetters.includes(l);
             return (
                 <span key={index} className="border-b-4 border-black w-[50px] text-center">
-                  <span className={isGuessed ? 'visible' : 'invisible' }>
+                  <span 
+                  className={`
+                              ${isGuessed || reveal ? "visible" : "invisible"}
+                              ${
+                                !isGuessed && reveal 
+                                  ? "text-red-500" 
+                                  : isGuessed
+                                    ? "text-green-500" 
+                                    : "text-black"
+                              }
+                            `}
+                   >
                       {l}
                   </span>
                 </span>

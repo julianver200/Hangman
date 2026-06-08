@@ -14,18 +14,18 @@ export default function App() {
   const incorrectLetters = guessedLetters.filter(
     letter => !wordToGuess.includes(letter)
   );
-
-  const addGuessedLetter = useCallback((letter: string): void =>{
-    if(guessedLetters.includes(letter)){
-      return;
-    }
-    setGuessedLetters(cLetter => [...cLetter, letter] );
-  },[guessedLetters]);
-  
   const isLoser = incorrectLetters.length >= 6;
   const isWinner = wordToGuess
     .split("")
     .every(letter => guessedLetters.includes(letter));
+  const addGuessedLetter = useCallback((letter: string): void =>{
+    if(guessedLetters.includes(letter)||  isWinner || isLoser){
+      return;
+    }
+    setGuessedLetters(cLetter => [...cLetter, letter] );
+  },[guessedLetters, isWinner, isLoser]);
+  
+  
   const message = isLoser 
     ? "You Lost! Try again." 
     : isWinner 
@@ -46,18 +46,24 @@ export default function App() {
      }
    }, [addGuessedLetter])
    
-   
+   const resetGame = () => {
+    setGuessedLetters([]);
+    setWordToGuess(wordData.words[Math.floor(Math.random() * wordData.words.length)]);
+   }
+
   return (
     <>
     
       <div className="flex flex-col items-center  min-h-screen pb-2">
-        <Popup message={message}/>
+        <Popup message={message} resetGame={resetGame}/>
         <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
         <HangmanWord 
+          reveal={ isLoser}
           guessedLetters={guessedLetters}
           wordToGuess={wordToGuess} 
         />
         <HangmanKeyboard
+          disabled={isWinner || isLoser }
           activeLetters={guessedLetters} 
           inactiveLetters={incorrectLetters} 
           addGuessedLetter={addGuessedLetter} 
